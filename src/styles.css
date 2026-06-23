@@ -1,0 +1,206 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-forest: var(--forest);
+  --color-forest-deep: var(--forest-deep);
+  --color-forest-rich: var(--forest-rich);
+  --color-forest-accent: var(--forest-accent);
+  --color-sand: var(--sand);
+  --color-sand-deep: var(--sand-deep);
+  --color-ink: var(--ink);
+  --color-bone: var(--bone);
+
+  --font-display: "Montserrat", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-serif: "Cormorant Garamond", serif;
+}
+
+:root {
+  --radius: 0.5rem;
+
+  /* Brand */
+  --forest-deep: oklch(0.32 0.07 152);   /* #014D23 */
+  --forest: oklch(0.38 0.09 152);
+  --forest-rich: oklch(0.45 0.11 150);   /* #0E6B3D */
+  --forest-accent: oklch(0.56 0.14 148); /* #1D8A4E */
+  --sand: oklch(0.93 0.04 75);           /* #F5DFC0 */
+  --sand-deep: oklch(0.85 0.06 72);
+  --ink: oklch(0.16 0.005 270);          /* #121212 */
+  --bone: oklch(0.985 0.003 80);         /* #FAFAF8 */
+
+  /* Semantic */
+  --background: var(--bone);
+  --foreground: var(--ink);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--ink);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--ink);
+  --primary: var(--forest-deep);
+  --primary-foreground: var(--bone);
+  --secondary: var(--sand);
+  --secondary-foreground: var(--forest-deep);
+  --muted: oklch(0.96 0.005 80);
+  --muted-foreground: oklch(0.45 0.01 270);
+  --accent: var(--forest-accent);
+  --accent-foreground: var(--bone);
+  --destructive: oklch(0.55 0.22 27);
+  --destructive-foreground: var(--bone);
+  --border: oklch(0.9 0.01 80);
+  --input: oklch(0.9 0.01 80);
+  --ring: var(--forest-rich);
+
+  --gradient-forest: linear-gradient(135deg, var(--forest-deep), var(--forest-rich) 60%, var(--forest-accent));
+  --gradient-warm: linear-gradient(180deg, var(--bone), var(--sand));
+  --shadow-soft: 0 30px 60px -30px color-mix(in oklab, var(--forest-deep) 25%, transparent);
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.04), 0 12px 32px -16px color-mix(in oklab, var(--forest-deep) 18%, transparent);
+}
+
+.dark {
+  --background: var(--ink);
+  --foreground: var(--bone);
+  --card: oklch(0.2 0.01 270);
+  --card-foreground: var(--bone);
+  --primary: var(--sand);
+  --primary-foreground: var(--ink);
+  --border: oklch(1 0 0 / 10%);
+  --muted: oklch(0.25 0.01 270);
+  --muted-foreground: oklch(0.7 0.01 80);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+  ::selection {
+    background: var(--forest-deep);
+    color: var(--bone);
+  }
+}
+
+@utility container-x {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  max-width: 80rem;
+  @media (min-width: 768px) { padding-inline: 2.5rem; }
+  @media (min-width: 1280px) { padding-inline: 3.5rem; }
+}
+
+@utility eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--forest-rich);
+}
+
+@utility btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 1.75rem;
+  background: var(--forest-deep);
+  color: var(--bone);
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: -0.005em;
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: var(--shadow-soft);
+  &:hover {
+    background: var(--forest-rich);
+    transform: translateY(-1px);
+  }
+}
+
+@utility btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  color: var(--forest-deep);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--forest-deep) 25%, transparent);
+  transition: all 0.3s ease;
+  &:hover {
+    background: var(--forest-deep);
+    color: var(--bone);
+  }
+}
+
+@utility hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--forest-deep) 25%, transparent), transparent);
+}
+
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@utility animate-reveal {
+  animation: reveal 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@utility animate-marquee {
+  animation: marquee 40s linear infinite;
+}
