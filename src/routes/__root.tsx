@@ -13,6 +13,8 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { CartProvider } from "@/components/cart/CartContext";
+import { CartDrawer } from "@/components/cart/CartDrawer";
 
 function NotFoundComponent() {
   return (
@@ -100,11 +102,14 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   return (
     <QueryClientProvider client={queryClient}>
-      <SiteHeader />
-      <main className="pt-16 md:pt-20">
-        <Outlet />
-      </main>
-      <SiteFooter />
+      <CartProvider>
+        <SiteHeader />
+        <main className="pt-20 md:pt-24">
+          <Outlet />
+        </main>
+        <SiteFooter />
+        <CartDrawer />
+      </CartProvider>
     </QueryClientProvider>
   );
 }

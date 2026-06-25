@@ -2,9 +2,11 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Logo } from "@/components/brand/Logo";
 import { Menu, X, ShoppingBag } from "lucide-react";
+import { useCart } from "@/components/cart/CartContext";
 
 const nav = [
   { to: "/le-kit", label: "Le Kit" },
+  { to: "/boutique", label: "Boutique" },
   { to: "/engagements", label: "Nos Engagements" },
   { to: "/conseils", label: "Conseils" },
   { to: "/a-propos", label: "À Propos" },
@@ -14,6 +16,7 @@ const nav = [
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { count, openCart } = useCart();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -30,7 +33,7 @@ export function SiteHeader() {
           : "bg-transparent"
       }`}
     >
-      <div className="container-x flex h-16 items-center justify-between md:h-20">
+      <div className="container-x flex h-20 items-center justify-between md:h-24">
         <Link to="/" className="text-forest-deep flex items-center gap-2">
           <Logo />
         </Link>
@@ -49,10 +52,20 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <Link to="/le-kit" className="hidden md:inline-flex items-center gap-2 text-[13px] font-semibold text-forest-deep">
+          <button
+            type="button"
+            onClick={openCart}
+            className="relative inline-flex items-center gap-2 text-[13px] font-semibold text-forest-deep hover:opacity-80 transition-opacity"
+            aria-label="Ouvrir le panier"
+          >
             <ShoppingBag className="size-4" />
-            Panier
-          </Link>
+            <span className="hidden md:inline">Panier</span>
+            {count > 0 && (
+              <span className="ml-1 inline-flex min-w-5 h-5 items-center justify-center rounded-full bg-forest-deep px-1.5 text-[11px] font-bold text-background">
+                {count}
+              </span>
+            )}
+          </button>
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}

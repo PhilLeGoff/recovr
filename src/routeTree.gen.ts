@@ -13,6 +13,7 @@ import { Route as LeKitRouteImport } from './routes/le-kit'
 import { Route as EngagementsRouteImport } from './routes/engagements'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ConseilsRouteImport } from './routes/conseils'
+import { Route as BoutiqueRouteImport } from './routes/boutique'
 import { Route as AProposRouteImport } from './routes/a-propos'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -36,6 +37,11 @@ const ConseilsRoute = ConseilsRouteImport.update({
   path: '/conseils',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BoutiqueRoute = BoutiqueRouteImport.update({
+  id: '/boutique',
+  path: '/boutique',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AProposRoute = AProposRouteImport.update({
   id: '/a-propos',
   path: '/a-propos',
@@ -50,6 +56,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/a-propos': typeof AProposRoute
+  '/boutique': typeof BoutiqueRoute
   '/conseils': typeof ConseilsRoute
   '/contact': typeof ContactRoute
   '/engagements': typeof EngagementsRoute
@@ -58,6 +65,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/a-propos': typeof AProposRoute
+  '/boutique': typeof BoutiqueRoute
   '/conseils': typeof ConseilsRoute
   '/contact': typeof ContactRoute
   '/engagements': typeof EngagementsRoute
@@ -67,6 +75,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/a-propos': typeof AProposRoute
+  '/boutique': typeof BoutiqueRoute
   '/conseils': typeof ConseilsRoute
   '/contact': typeof ContactRoute
   '/engagements': typeof EngagementsRoute
@@ -77,16 +86,25 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/a-propos'
+    | '/boutique'
     | '/conseils'
     | '/contact'
     | '/engagements'
     | '/le-kit'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/a-propos' | '/conseils' | '/contact' | '/engagements' | '/le-kit'
+  to:
+    | '/'
+    | '/a-propos'
+    | '/boutique'
+    | '/conseils'
+    | '/contact'
+    | '/engagements'
+    | '/le-kit'
   id:
     | '__root__'
     | '/'
     | '/a-propos'
+    | '/boutique'
     | '/conseils'
     | '/contact'
     | '/engagements'
@@ -96,6 +114,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AProposRoute: typeof AProposRoute
+  BoutiqueRoute: typeof BoutiqueRoute
   ConseilsRoute: typeof ConseilsRoute
   ContactRoute: typeof ContactRoute
   EngagementsRoute: typeof EngagementsRoute
@@ -132,6 +151,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConseilsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/boutique': {
+      id: '/boutique'
+      path: '/boutique'
+      fullPath: '/boutique'
+      preLoaderRoute: typeof BoutiqueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/a-propos': {
       id: '/a-propos'
       path: '/a-propos'
@@ -152,6 +178,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AProposRoute: AProposRoute,
+  BoutiqueRoute: BoutiqueRoute,
   ConseilsRoute: ConseilsRoute,
   ContactRoute: ContactRoute,
   EngagementsRoute: EngagementsRoute,

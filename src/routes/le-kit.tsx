@@ -1,11 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Check, Leaf, Shield, Truck } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
+import { useCart } from "@/components/cart/CartContext";
 import kitHero from "@/assets/kit-hero.jpg";
 import corkRollerImg from "@/assets/cork-roller.jpg";
 import ballImg from "@/assets/massage-ball.jpg";
 import bandsImg from "@/assets/bands.jpg";
-import bagImg from "@/assets/bag.jpg";
+
 import athleteImg from "@/assets/athlete-mobility.jpg";
 
 export const Route = createFileRoute("/le-kit")({
@@ -24,6 +25,11 @@ export const Route = createFileRoute("/le-kit")({
 });
 
 function KitPage() {
+  const { addItem, openCart } = useCart();
+  const handleAdd = () => {
+    addItem({ id: "kit-recovr-v1", name: "Le Kit RECOVR", price: 35, image: kitHero });
+    openCart();
+  };
   return (
     <>
       <section className="container-x pt-12 lg:pt-20 pb-24">
@@ -40,17 +46,21 @@ function KitPage() {
                 Le Kit <span className="italic font-serif font-medium">RECOVR</span>
               </h1>
               <p className="mt-6 text-lg leading-relaxed text-foreground/75 max-w-lg">
-                Cinq outils premium en liège naturel et caoutchouc, pensés comme un système complet pour la mobilité, la récupération et l'activation musculaire.
+                Quatre outils premium en liège naturel et latex, pensés comme un système complet pour la mobilité, la récupération et l'activation musculaire.
               </p>
             </Reveal>
             <Reveal delay={0.1}>
               <div className="mt-10 flex items-baseline gap-4">
-                <span className="font-display text-5xl font-extrabold text-forest-deep">89€</span>
-                <span className="text-foreground/50 line-through">119€</span>
-                <span className="text-xs tracking-[0.18em] uppercase font-semibold text-forest-accent">-25% lancement</span>
+                <span className="font-display text-5xl font-extrabold text-forest-deep">35€</span>
+                <span className="text-foreground/50 line-through">50€</span>
+                <span className="text-xs tracking-[0.18em] uppercase font-semibold text-forest-accent">Offre lancement · 100 premiers kits</span>
+              </div>
+              <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-forest-accent/10 px-4 py-2 text-[12px] font-semibold tracking-wide text-forest-deep">
+                <span className="size-2 rounded-full bg-forest-accent animate-pulse" />
+                Plus que <strong className="font-extrabold">69 kits</strong> disponibles à 35€
               </div>
               <div className="mt-8 flex flex-wrap gap-3">
-                <button className="btn-primary">Ajouter au panier <ArrowRight className="size-4" /></button>
+                <button onClick={handleAdd} className="btn-primary">Ajouter au panier <ArrowRight className="size-4" /></button>
                 <Link to="/contact" className="btn-ghost">Nous écrire</Link>
               </div>
               <ul className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -75,7 +85,7 @@ function KitPage() {
           <Reveal>
             <p className="eyebrow">Composition</p>
             <h2 className="mt-5 max-w-3xl text-[clamp(2rem,4vw,3.4rem)] text-forest-deep">
-              Cinq pièces, <span className="italic font-serif font-medium">pensées ensemble.</span>
+              Quatre pièces, <span className="italic font-serif font-medium">pensées ensemble.</span>
             </h2>
           </Reveal>
           <div className="mt-16 grid gap-10 md:grid-cols-2 lg:grid-cols-3">
@@ -84,7 +94,6 @@ function KitPage() {
               { img: ballImg, t: "Balle de massage", d: "Travail ciblé : voûte plantaire, trapèzes, fessiers." },
               { img: bandsImg, t: "Grand élastique", d: "Pour les exercices de mobilité et d'étirement actif." },
               { img: bandsImg, t: "Petit élastique", d: "Activation des épaules, hanches et fessiers." },
-              { img: bagImg, t: "Sac de transport", d: "Coton bio, fermeture cordon. Léger et résistant." },
               { img: athleteImg, t: "Guide d'utilisation", d: "Routines vidéo dédiées : 8, 15 ou 25 minutes." },
             ].map((p, i) => (
               <Reveal key={p.t} delay={i * 0.06}>
